@@ -4,6 +4,7 @@ package dh.backend.clinica.dao.impl;
 import dh.backend.clinica.dao.IDao;
 import dh.backend.clinica.db.H2Connection;
 import dh.backend.clinica.model.Domicilio;
+import dh.backend.clinica.model.Turno;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +107,7 @@ public class DaoH2Domicilio implements IDao<Domicilio> {
     }
 
     @Override
-    public void modificar(Domicilio domicilio) {
+    public Domicilio modificar(Domicilio domicilio) {
         Connection connection = null;
         try{
             connection = H2Connection.getConnection();
@@ -145,6 +146,7 @@ public class DaoH2Domicilio implements IDao<Domicilio> {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
     @Override

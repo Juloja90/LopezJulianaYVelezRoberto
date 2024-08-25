@@ -39,11 +39,11 @@ public class TurnoService {
         return turnoIDao.listaTodos();
     }
 
-    void modificarTurno(Turno turno){
-        turnoIDao.modificar(turno);
+    public void modificarTurno(Turno turno){
+         turnoIDao.modificar(turno);
     }
 
-    void eliminarTurno(Integer id){
+    public void eliminarTurno(Integer id){
         turnoIDao.eliminar(id);
     }
 

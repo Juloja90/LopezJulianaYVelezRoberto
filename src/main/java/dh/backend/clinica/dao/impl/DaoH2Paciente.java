@@ -6,6 +6,7 @@ import dh.backend.clinica.db.H2Connection;
 import dh.backend.clinica.model.Domicilio;
 import dh.backend.clinica.model.Paciente;
 
+import dh.backend.clinica.model.Turno;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -154,7 +155,7 @@ public class DaoH2Paciente implements IDao<Paciente> {
     }
 
     @Override
-    public void modificar(Paciente paciente) {
+    public Paciente modificar(Paciente paciente) {
         Connection connection = null;
         try{
             connection = H2Connection.getConnection();
@@ -195,6 +196,7 @@ public class DaoH2Paciente implements IDao<Paciente> {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
     @Override

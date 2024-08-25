@@ -39,7 +39,7 @@ public class TurnoEnMemoria implements IDao<Turno> {
     }
 
     @Override
-    public void modificar(Turno turno) {
+    public Turno modificar(Turno turno) {
         for(Turno t: turnos){
             if(t.getId().equals(turno.getId())){
                 t.setOdontologo(turno.getOdontologo());
@@ -49,6 +49,7 @@ public class TurnoEnMemoria implements IDao<Turno> {
                 logger.info("turno encontrado "+ t);
             }
         }
+        return turno;
     }
 
     @Override
