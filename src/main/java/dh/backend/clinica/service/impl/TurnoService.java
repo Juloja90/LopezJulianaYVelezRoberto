@@ -1,21 +1,23 @@
-package dh.backend.clinica.service;
+package dh.backend.clinica.service.impl;
 
 import dh.backend.clinica.dao.IDao;
-import dh.backend.clinica.model.Odontologo;
-import dh.backend.clinica.model.Paciente;
-import dh.backend.clinica.model.Turno;
+import dh.backend.clinica.entity.Odontologo;
+import dh.backend.clinica.entity.Paciente;
+import dh.backend.clinica.entity.Turno;
+import dh.backend.clinica.repository.ITurnoRepository;
+import dh.backend.clinica.service.ITurnoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TurnoService {
-    private IDao<Turno> turnoIDao;
+public class TurnoService implements ITurnoService {
+    private ITurnoRepository turnoRepository;
     private PacienteService pacienteService;
     private OdontologoService odontologoService;
 
-    public TurnoService(IDao<Turno> turnoIDao, PacienteService pacienteService, OdontologoService odontologoService) {
-        this.turnoIDao = turnoIDao;
+    public TurnoService(ITurnoRepository turnoRepository, PacienteService pacienteService, OdontologoService odontologoService) {
+        this.turnoRepository = turnoRepository;
         this.pacienteService = pacienteService;
         this.odontologoService = odontologoService;
     }
@@ -39,11 +41,11 @@ public class TurnoService {
         return turnoIDao.listaTodos();
     }
 
-    public void modificarTurno(Turno turno){
-         turnoIDao.modificar(turno);
+    void modificarTurno(Turno turno){
+        turnoIDao.modificar(turno);
     }
 
-    public void eliminarTurno(Integer id){
+    void eliminarTurno(Integer id){
         turnoIDao.eliminar(id);
     }
 

@@ -1,7 +1,7 @@
 package dh.backend.clinica.controller;
 
-import dh.backend.clinica.model.Odontologo;
-import dh.backend.clinica.service.OdontologoService;
+import dh.backend.clinica.entity.Odontologo;
+import dh.backend.clinica.service.impl.OdontologoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
