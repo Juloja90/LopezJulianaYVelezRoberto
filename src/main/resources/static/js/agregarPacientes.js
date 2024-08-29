@@ -1,4 +1,5 @@
 const form = document.getElementById("agregarForm");
+const apiURL = "http://localhost:8080";
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -26,7 +27,7 @@ form.addEventListener("submit", function (event) {
     },
   };
 
-  fetch(`paciente/guardar`, {
+  fetch(`${apiURL}/paciente/guardar`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

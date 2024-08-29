@@ -1,4 +1,4 @@
-
+const apiURL = "http://localhost:8080";
 
 // Obtener la referencia a la tabla y al modal
 const tableBody = document.querySelector("#pacienteTable tbody");
@@ -10,7 +10,7 @@ let currentDomicilioId;
 // Función para obtener y mostrar los odontólogos
 function fetchPacientes() {
   // listar los pacientes
-  fetch(`paciente/buscartodos`)
+  fetch(`${apiURL}/paciente/buscartodos`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -85,7 +85,7 @@ editForm.addEventListener("submit", function (event) {
   const provincia = document.getElementById("editProvincia").value;
 
   //modificar un paciente
-  fetch(`paciente/modificar`, {
+  fetch(`${apiURL}/paciente/modificar`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -121,7 +121,7 @@ editForm.addEventListener("submit", function (event) {
 deletePaciente = function (id) {
   if (confirm("¿Está seguro de que desea eliminar este paciente?")) {
     // eliminar el paciente
-    fetch(`paciente/eliminar/${id}`, {
+    fetch(`${apiURL}/paciente/eliminar/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
