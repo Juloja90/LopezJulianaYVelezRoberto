@@ -27,28 +27,16 @@ public class PacienteController {
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String>  modificarPaciente(@RequestBody Paciente paciente){
-        Optional<Paciente> pacienteEncontrado = pacienteService.buscarPorId(paciente.getId());
-        if(pacienteEncontrado.isPresent()){
-            pacienteService.modificarPaciente(paciente);
-            String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String> modificarPaciente(@RequestBody Paciente paciente){
+        pacienteService.modificarPaciente(paciente);
+        return ResponseEntity.ok("{\"mensaje\": \"El paciente fue modificado\"}");
     }
 
     //DELETE
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarPaciente(@PathVariable Integer id){
-        Optional<Paciente>  pacienteEncontrado = pacienteService.buscarPorId(id);
-        if(pacienteEncontrado.isPresent()) {
-            pacienteService.eliminarPaciente(id);
-            String jsonResponse = "{\"mensaje\": \"El paciente fue eliminado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        pacienteService.eliminarPaciente(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El paciente fue eliminado\"}");
     }
 
     //GET

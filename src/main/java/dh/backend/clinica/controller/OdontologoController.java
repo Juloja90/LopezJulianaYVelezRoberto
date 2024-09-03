@@ -26,39 +26,23 @@ public class OdontologoController {
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificarOdontologo(@RequestBody Odontologo odontologo){
-        Optional<Odontologo> odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
-        if(odontologoEncontrado.isPresent()){
-            odontologoService.modificarOdontologo(odontologo);
-            String jsonResponse = "{\"mensaje\": \"El odontologo fue modificado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String> modificarOdontologo(@PathVariable Integer id, @RequestBody Odontologo odontologo){
+        odontologoService.modificarOdontologo(odontologo);
+        return ResponseEntity.ok("{\"mensaje\": \"El odontologo fue modificado\"}");
     }
 
     //DELETE
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarOdontologo(@PathVariable Integer id){
-        Optional<Odontologo> odontologoEncontrado = odontologoService.buscarPorId(id);
-        if(odontologoEncontrado!= null) {
-            odontologoService.eliminarOdontologo(id);
-            String jsonResponse = "{\"mensaje\": \"El odontologo fue eliminado\"}";
-            return ResponseEntity.ok(jsonResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        odontologoService.eliminarOdontologo(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El odontologo fue eliminado\"}");
     }
 
     //GET
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<Odontologo> buscarPorId(@PathVariable Integer id){
-        Optional<Odontologo> odontologo = odontologoService.buscarPorId(id);
-        if(odontologo.isPresent()){
-            return ResponseEntity.ok(odontologo.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<String>  buscarPorId(@PathVariable Integer id){
+        odontologoService.buscarPorId(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El odontologo fue encontrado\"}");
     }
 
     //GET

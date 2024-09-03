@@ -2,6 +2,8 @@ package dh.backend.clinica.service.impl;
 
 
 import dh.backend.clinica.entity.Odontologo;
+import dh.backend.clinica.entity.Paciente;
+import dh.backend.clinica.exception.ResourceNotFoundException;
 import dh.backend.clinica.repository.IOdontologoRepository;
 import dh.backend.clinica.service.IOdontologoService;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public Optional<Odontologo> buscarPorId(Integer id) {
+        if(odontologoRepository.findById(id).isEmpty()){
+            throw new ResourceNotFoundException("Odontologo no encontrado");
+        }
         return odontologoRepository.findById(id);
     }
 
@@ -33,13 +38,23 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public void modificarOdontologo(Odontologo odontologo) {
-        odontologoRepository.save(odontologo);
+    public void modificarOdontologo(Odontologo id) {
+        Optional<Odontologo> odontologoEncontrado = buscarPorId(id.getId());
+        if(odontologoEncontrado.isPresent()){
+            Optional.of(odontologoRepository.save(id));
+        } else {
+            throw new ResourceNotFoundException("Odontologo no encontrado");
+        }
     }
 
     @Override
     public void eliminarOdontologo(Integer id) {
-        odontologoRepository.deleteById(id);
+        Optional<Odontologo> odontologoEncontrado = buscarPorId(id);
+        if(odontologoEncontrado.isPresent()){
+            odontologoRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("Odontologo no encontrado");
+        }
     }
 
     @Override
