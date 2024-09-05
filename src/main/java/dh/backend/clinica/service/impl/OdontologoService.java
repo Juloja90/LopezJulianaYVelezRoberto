@@ -38,13 +38,8 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public void modificarOdontologo(Odontologo id) {
-        Optional<Odontologo> odontologoEncontrado = buscarPorId(id.getId());
-        if(odontologoEncontrado.isPresent()){
-            Optional.of(odontologoRepository.save(id));
-        } else {
-            throw new ResourceNotFoundException("Odontologo no encontrado");
-        }
+    public void modificarOdontologo(Odontologo odontologo) {
+        odontologoRepository.save(odontologo);
     }
 
     @Override

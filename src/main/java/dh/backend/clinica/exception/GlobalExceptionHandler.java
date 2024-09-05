@@ -23,17 +23,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> manejoGeneral(Exception e, HttpServletRequest request){
-        ApiError apiError = new ApiError(
-                request.getRequestURI(),
-                "Error del servidor",
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ZonedDateTime.now(),
-                List.of()
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ApiError> manejoGeneral(Exception e, HttpServletRequest request){
+//        ApiError apiError = new ApiError(
+//                request.getRequestURI(),
+//                "Error del servidor",
+//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                ZonedDateTime.now(),
+//                List.of()
+//        );
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
+//    }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiError> badRequestException(BadRequestException e, HttpServletRequest request){

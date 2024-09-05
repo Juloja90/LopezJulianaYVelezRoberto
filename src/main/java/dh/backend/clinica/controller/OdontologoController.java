@@ -1,6 +1,7 @@
 package dh.backend.clinica.controller;
 
 import dh.backend.clinica.entity.Odontologo;
+import dh.backend.clinica.entity.Paciente;
 import dh.backend.clinica.service.IOdontologoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,15 @@ public class OdontologoController {
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificarOdontologo(@PathVariable Integer id, @RequestBody Odontologo odontologo){
-        odontologoService.modificarOdontologo(odontologo);
-        return ResponseEntity.ok("{\"mensaje\": \"El odontologo fue modificado\"}");
+    public ResponseEntity<String>  modoficarOdontologo(@RequestBody Odontologo odontologo){
+        Optional<Odontologo> odontologoEncontrado = odontologoService.buscarPorId(odontologo.getId());
+        if(odontologoEncontrado.isPresent()){
+            odontologoService.modificarOdontologo(odontologo);
+            String jsonResponse = "{\"mensaje\": \"El odontologo fue modificado\"}";
+            return ResponseEntity.ok(jsonResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     //DELETE
