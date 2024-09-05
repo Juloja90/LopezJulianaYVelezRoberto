@@ -48,6 +48,10 @@ public class TurnoController {
         Optional<Turno> turno = turnoService.buscarPorId(id);
         return ResponseEntity.ok(turno.get());
     }
-
+    @GetMapping("/eliminar/{id}")
+    public ResponseEntity<String> eliminarTurno(@PathVariable Integer id){
+        turnoService.eliminarTurno(id);
+        return ResponseEntity.ok("{\"mensaje\": \"El turno fue eliminado\"}");
+    }
 
 }
