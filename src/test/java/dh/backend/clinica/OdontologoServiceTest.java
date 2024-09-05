@@ -4,11 +4,16 @@ package dh.backend.clinica;
 import dh.backend.clinica.entity.Odontologo;
 import dh.backend.clinica.service.impl.OdontologoService;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
 import java.sql.Connection;
@@ -16,40 +21,53 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@Transactional
 class OdontologoServiceTest {
-//    static final Logger logger = LoggerFactory.getLogger(OdontologoServiceTest.class);
-//    OdontologoService odontologoService = new OdontologoService(new DaoH2Odontologo());
-//
-//    @BeforeAll
-//    static void crearTabla(){
-//        Connection connection = null;
-//        try{
-//            Class.forName("org.h2.Driver");
-//
-//            connection.setAutoCommit(false);
-//            logger.info("Se ha creado la tabla");
-//            connection.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            logger.error(e.getMessage());
-//        } finally {
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                logger.error(e.getMessage());
-//            }
-//
-//        }
-//    }
-//
-//    @Test
-//    @DisplayName("Probar que se devuelven todos los odontologos")
-//    void caso1() {
-//        List<Odontologo> odontologos;
-//        odontologos = odontologoService.buscarTodos();
-//        assertNotNull(odontologos);
-//    }
 
+    static final Logger logger = LoggerFactory.getLogger(OdontologoServiceTest.class);
+    @Autowired
+    OdontologoService odontologoService;
+    Odontologo odontologo;
+    Odontologo odontologoDesdeDb;
+
+    @BeforeEach
+    void cargarDatos(){
+        odontologo = new Odontologo();
+        odontologo.setApellido("Castro");
+        odontologo.setNombre("Maria");
+        odontologo.setNroMatricula("48974646");
+        odontologoDesdeDb = odontologoService.guardarOdontologo(odontologo);
+    }
+
+    @Test
+    @DisplayName("Testear que un odontologo fue cargado correctamente")
+    void caso1(){
+        assertNotNull(odontologoDesdeDb.getId());
+    }
+
+    @Test
+    @DisplayName("Testear que un odontologo pueda acceder por id")
+    void caso2(){
+        //Dado
+        Integer id = odontologoDesdeDb.getId();
+        //cuando
+        Odontologo odontologoRecuperado = odontologoService.buscarPorId(id).get();
+        // entonces
+        assertEquals(id, odontologoRecuperado.getId());
+    }
+
+    @Test
+    @DisplayName("Listar todos los odontologos")
+    void caso3(){
+        //Dado
+        List<Odontologo> odontologos;
+        // cuando
+        odontologos = odontologoService.buscarTodos();
+        // entonces
+        assertFalse(odontologos.isEmpty());
+    }
 }
