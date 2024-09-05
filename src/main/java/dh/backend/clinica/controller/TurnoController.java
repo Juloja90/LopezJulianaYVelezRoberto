@@ -42,4 +42,12 @@ public class TurnoController {
         Optional<Turno> turno = turnoService.buscarTurnosPorPaciente(apellido);
         return ResponseEntity.ok(turno.get());
     }
+
+    @GetMapping("/buscarTurnoId/{id}")
+    public ResponseEntity<Turno> buscarPorId(@PathVariable Integer id){
+        Optional<Turno> turno = turnoService.buscarPorId(id);
+        return ResponseEntity.ok(turno.get());
+    }
+
+
 }
