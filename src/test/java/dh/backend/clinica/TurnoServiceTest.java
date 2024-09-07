@@ -1,5 +1,6 @@
 package dh.backend.clinica;
 
+import dh.backend.clinica.dto.response.TurnoResponseDto;
 import dh.backend.clinica.entity.Domicilio;
 import dh.backend.clinica.entity.Odontologo;
 import dh.backend.clinica.entity.Paciente;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,5 +77,27 @@ class TurnoServiceTest {
     @DisplayName("Testear que un turno fue creado correctamente")
     void caso1(){
         assertNotNull(turnoDesdeDb.getId());
+    }
+
+    @Test
+    @DisplayName("Testear que un turno pueda acceder por id")
+    void caso2(){
+        //Dado
+        Integer id = turnoDesdeDb.getId();
+        //cuando
+        TurnoResponseDto turnoRecuperado = turnoService.buscarPorId(id).get();
+        // entonces
+        assertEquals(id, turnoRecuperado.getId());
+    }
+
+    @Test
+    @DisplayName("Listar todos los turnos")
+    void caso3(){
+        //Dado
+        List<TurnoResponseDto> turnos;
+        // cuando
+        turnos = turnoService.buscarTodos();
+        // entonces
+        assertFalse(turnos.isEmpty());
     }
 }
