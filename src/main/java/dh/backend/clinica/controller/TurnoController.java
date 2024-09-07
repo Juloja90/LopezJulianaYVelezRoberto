@@ -3,10 +3,8 @@ package dh.backend.clinica.controller;
 import dh.backend.clinica.dto.request.TurnoModifyDto;
 import dh.backend.clinica.dto.request.TurnoRequestDto;
 import dh.backend.clinica.dto.response.TurnoResponseDto;
-import dh.backend.clinica.entity.Turno;
 import dh.backend.clinica.service.ITurnoService;
-import dh.backend.clinica.service.impl.TurnoService;
-import org.springframework.expression.spel.ast.OpAnd;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +21,7 @@ public class TurnoController {
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<TurnoResponseDto> guardarTurno(@RequestBody TurnoRequestDto turnoRequestDto){
+    public ResponseEntity<TurnoResponseDto> guardarTurno(@Valid @RequestBody TurnoRequestDto turnoRequestDto){
         return ResponseEntity.ok(turnoService.guardarTurno(turnoRequestDto));
     }
 
@@ -33,19 +31,19 @@ public class TurnoController {
     }
 
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificarTurno(@RequestBody TurnoModifyDto turnoModifyDto){
+    public ResponseEntity<String> modificarTurno(@Valid @RequestBody TurnoModifyDto turnoModifyDto){
         turnoService.modificarTurnos(turnoModifyDto);
         return ResponseEntity.ok("{\"mensaje\": \"El turno fue modificado\"}");
     }
     @GetMapping("/buscarTurnoApellido/{apellido}")
-    public ResponseEntity<Turno> buscarTurnoPorApellido(@PathVariable String apellido){
-        Optional<Turno> turno = turnoService.buscarTurnosPorPaciente(apellido);
+    public ResponseEntity<TurnoResponseDto> buscarTurnoPorApellido(@PathVariable String apellido){
+        Optional<TurnoResponseDto> turno = turnoService.buscarTurnosPorPaciente(apellido);
         return ResponseEntity.ok(turno.get());
     }
 
     @GetMapping("/buscarTurnoId/{id}")
-    public ResponseEntity<Turno> buscarPorId(@PathVariable Integer id){
-        Optional<Turno> turno = turnoService.buscarPorId(id);
+    public ResponseEntity<TurnoResponseDto> buscarPorId(@PathVariable Integer id){
+        Optional<TurnoResponseDto> turno = turnoService.buscarPorId(id);
         return ResponseEntity.ok(turno.get());
     }
     @GetMapping("/eliminar/{id}")

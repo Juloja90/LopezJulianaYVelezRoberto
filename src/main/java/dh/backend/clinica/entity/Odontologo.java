@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dh.backend.clinica.utils.GsonProvider;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,14 @@ public class Odontologo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank
     private String nroMatricula;
     private String apellido;
     private String nombre;
 
     @OneToMany(mappedBy = "odontologo", cascade = CascadeType.REMOVE)
-    //@JsonManagedReference(value = "odontologo-turno")
-    @JsonIgnore
+    @JsonManagedReference(value = "odontologo-turno")
+    //@JsonIgnore
     private Set<Turno> turnoSet;
 
     @Override

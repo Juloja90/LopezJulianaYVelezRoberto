@@ -6,6 +6,7 @@ import dh.backend.clinica.entity.Paciente;
 import dh.backend.clinica.exception.ResourceNotFoundException;
 import dh.backend.clinica.repository.IOdontologoRepository;
 import dh.backend.clinica.service.IOdontologoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,12 @@ import java.util.Optional;
 
 @Service
 public class OdontologoService implements IOdontologoService {
+    @Autowired
     private IOdontologoRepository odontologoRepository;
 
-    public OdontologoService(IOdontologoRepository odontologoRepository) {
-        this.odontologoRepository = odontologoRepository;
-    }
+//    public OdontologoService(IOdontologoRepository odontologoRepository) {
+//        this.odontologoRepository = odontologoRepository;
+//    }
 
     @Override
     public Odontologo guardarOdontologo(Odontologo odontologo) {

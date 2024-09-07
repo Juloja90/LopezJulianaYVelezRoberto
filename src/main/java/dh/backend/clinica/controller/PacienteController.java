@@ -3,6 +3,7 @@ package dh.backend.clinica.controller;
 import dh.backend.clinica.entity.Paciente;
 import dh.backend.clinica.service.IPacienteService;
 import dh.backend.clinica.service.impl.PacienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +22,21 @@ public class PacienteController {
 
     //POST
     @PostMapping("/guardar")
-    public ResponseEntity<Paciente> guardarPaciente(@RequestBody Paciente paciente){
+    public ResponseEntity<Paciente> guardarPaciente(@Valid @RequestBody Paciente paciente){
         return ResponseEntity.ok(pacienteService.guardarPaciente(paciente));
     }
 
     //PUT
     @PutMapping("/modificar")
-    public ResponseEntity<String> modificarPaciente(@RequestBody Paciente paciente){
-        pacienteService.modificarPaciente(paciente);
-        return ResponseEntity.ok("{\"mensaje\": \"El paciente fue modificado\"}");
+    public ResponseEntity<String>  modificarPaciente(@RequestBody Paciente paciente){
+        Optional<Paciente> pacienteEncontrado = pacienteService.buscarPorId(paciente.getId());
+        if(pacienteEncontrado.isPresent()){
+            pacienteService.modificarPaciente(paciente);
+            String jsonResponse = "{\"mensaje\": \"El paciente fue modificado\"}";
+            return ResponseEntity.ok(jsonResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     //DELETE

@@ -22,16 +22,16 @@ public class Turno {
     private Integer id;
 
     @ManyToOne
-    //@JsonBackReference(value = "paciente-turno")
+    @JsonBackReference(value = "paciente-turno")
     private Paciente paciente;
 
     @ManyToOne
-    //@JsonBackReference(value = "odontologo-turno")
+    @JsonBackReference(value = "odontologo-turno")
     private Odontologo odontologo;
     private LocalDate fecha;
 
-    @Override
-    public String toString() {
-        return GsonProvider.getGson().toJson(this);
-    }
+//    @Override
+//    public String toString() {
+//        return GsonProvider.getGson().toJson(this);
+//    }
 }
