@@ -46,7 +46,7 @@ public class TurnoController {
         Optional<TurnoResponseDto> turno = turnoService.buscarPorId(id);
         return ResponseEntity.ok(turno.get());
     }
-    @GetMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarTurno(@PathVariable Integer id){
         turnoService.eliminarTurno(id);
         return ResponseEntity.ok("{\"mensaje\": \"El turno fue eliminado\"}");
