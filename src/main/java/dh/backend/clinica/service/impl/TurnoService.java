@@ -131,7 +131,14 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public Optional<TurnoResponseDto> buscarTurnosPorPaciente(String pacienteApellido) {
-        return turnoRepository.buscarPorApellidoPaciente(pacienteApellido);
+        Optional<Turno> turno = turnoRepository.buscarPorApellidoPaciente(pacienteApellido);
+        if(turno.isPresent()){
+            TurnoResponseDto turnoRespuesta = convertirTurnoEnResponse(turno.get());
+            return Optional.of(turnoRespuesta);
+        } else {
+            throw new ResourceNotFoundException("El turno no fue encontrado");
+        }
+
     }
 
     private TurnoResponseDto obtenerTurnoResponse(Turno turnoDesdeBD){
