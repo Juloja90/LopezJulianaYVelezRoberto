@@ -20,4 +20,6 @@ public interface IOdontologoService {
     List<Odontologo> buscarPorApellidoyNombre(String apellido, String nombre);
 
     List<Odontologo> buscarPorUnaParteApellido(String parte);
+
+    List<Odontologo> buscarPorUnaParteNombre(String parte);
 }

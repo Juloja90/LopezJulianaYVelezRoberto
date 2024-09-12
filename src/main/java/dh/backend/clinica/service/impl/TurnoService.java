@@ -119,15 +119,6 @@ public class TurnoService implements ITurnoService {
         turnoRepository.deleteById(id);
     }
 
-//    @Override
-//    public void eliminarTurno(Integer id) {
-//        Optional<TurnoResponseDto> turnoEcontrado = buscarPorId(id);
-//        if(turnoEcontrado.isPresent()){
-//            turnoRepository.deleteById(id);
-//        } else {
-//            throw new ResourceNotFoundException("Turno no encontrado");
-//        }
-//    }
 
     @Override
     public Optional<TurnoResponseDto> buscarTurnosPorPaciente(String pacienteApellido) {

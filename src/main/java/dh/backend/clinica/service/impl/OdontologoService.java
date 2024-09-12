@@ -74,4 +74,10 @@ public class OdontologoService implements IOdontologoService {
         logger.info("Buscando odontólogos por parte del apellido: {}", parte);
         return odontologoRepository.buscarPorParteApellido(parte);
     }
+
+    @Override
+    public List<Odontologo> buscarPorUnaParteNombre(String parte) {
+        logger.info("Buscando odontólogos por parte del nombre: {}", parte);
+        return odontologoRepository.buscarPorParteNombre(parte);
+    }
 }

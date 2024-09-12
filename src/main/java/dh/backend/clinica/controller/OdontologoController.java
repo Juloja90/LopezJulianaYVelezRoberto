@@ -73,5 +73,10 @@ public class OdontologoController {
         return ResponseEntity.ok(odontologoService.buscarPorUnaParteApellido(parte));
     }
 
+    @GetMapping("/buscarNombre/{parte}")
+    public ResponseEntity<List<Odontologo>> buscarParteNombre(@PathVariable String parte){
+        return ResponseEntity.ok(odontologoService.buscarPorUnaParteNombre(parte));
+    }
+
 }
 
